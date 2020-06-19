@@ -11,7 +11,7 @@ public class Solutions {
 		
 		ProblemGen problemGen = new ProblemGen();
 		
-		IProblemSolver naive = new SolutionSortSearch();
+		IProblemSolver naive = new SolutionPro();
 		
 		for(int i=0;i<20;i++) {
 			problemGen.genRandomProblem(10000000); 
