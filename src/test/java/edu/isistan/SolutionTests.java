@@ -20,6 +20,8 @@ public class SolutionTests {
 	public void setTestCases() {
 		case1();
 		case2();
+		case3();
+		case4();
 	}
 
 	private void case1() {
@@ -55,13 +57,42 @@ public class SolutionTests {
 		expectedResults.add(expected);
 	}
 
+	private void case3() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = { 1, 1 };
+		int sum = 2;
+		expected.add(new IProblemSolver.Pair(1, 1));
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
+	private void case4() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = { 1, 8, -8, 32, -6, -6, -4, 4, -44, -16, -20 };
+		int sum = -12;
+		expected.add(new IProblemSolver.Pair(-8, -4));
+		expected.add(new IProblemSolver.Pair(-6, -6));
+		expected.add(new IProblemSolver.Pair(4, -16));
+		expected.add(new IProblemSolver.Pair(8, -20));
+		expected.add(new IProblemSolver.Pair(32, -44));
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
 	private void makeTest(IProblemSolver solver) {
 		for (int i = 0; i < arrays.size(); i++) {
 			List<Pair> solution = solver.isSumIn(arrays.get(i), sums.get(i));
 			List<Pair> expected = expectedResults.get(i);
 			String errorMessage = "expected: " + expected.toString() + "   but was: " + solution.toString();
 			for (Pair pair : expected) {
-				assertTrue(errorMessage, solution.remove(pair));
+				boolean result = solution.remove(pair);
+				if (!result) {
+					assertTrue(errorMessage, solution.remove(new Pair(pair.getJ(), pair.getI())));
+				}
 			}
 			assertTrue(errorMessage, solution.isEmpty());
 		}
