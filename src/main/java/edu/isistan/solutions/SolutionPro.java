@@ -17,6 +17,11 @@ public class SolutionPro implements IProblemSolver {
 			if (i > 0 && data[i] == data[i - 1])
 				continue;
 
+			// If the current value needs a lower value to make a pair, then the loop must
+			// finish because it's an ordered array
+			if (data[i] > sum - data[i])
+				break;
+
 			if (sum == data[i] * 2) {
 				int cantI = frequencyOfI(data, i);
 				if (cantI > 1) {
