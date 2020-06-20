@@ -23,6 +23,9 @@ public class SolutionTests {
 		case3();
 		case4();
 		case5();
+		case6();
+		case7();
+		case8();
 	}
 
 	private void case1() {
@@ -92,6 +95,36 @@ public class SolutionTests {
 		expected.add(new IProblemSolver.Pair(4, -16));
 		expected.add(new IProblemSolver.Pair(8, -20));
 		expected.add(new IProblemSolver.Pair(32, -44));
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
+	private void case6() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = { 1, 8, -8, 32, -6, -6, -4, 4, -44, -16, -20, 47, -59 };
+		int sum = -1000;
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
+	private void case7() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = {};
+		int sum = -1000;
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
+	private void case8() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = { 9 };
+		int sum = 9;
 
 		arrays.add(array);
 		sums.add(sum);
