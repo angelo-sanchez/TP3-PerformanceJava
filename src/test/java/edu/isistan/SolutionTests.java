@@ -133,4 +133,9 @@ public class SolutionTests {
 		makeTest(new SolutionSortSearch2());
 	}
 
+	@Test
+	public void testSolutionPro() {
+		makeTest(new SolutionPro());
+	}
+
 }
