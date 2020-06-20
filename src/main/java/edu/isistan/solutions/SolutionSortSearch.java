@@ -21,7 +21,7 @@ public class SolutionSortSearch implements IProblemSolver {
                     pairs.add(new Pair(datos[i], datos[rightNeighbour]));
                     rightNeighbour++;
                 }
-                while (leftNeighbour > 0 && datos[leftNeighbour] == datos[found]){
+                while (leftNeighbour > 0 && leftNeighbour > i  && datos[leftNeighbour] == datos[found]){
                     pairs.add(new Pair(datos[i], datos[leftNeighbour]));
                     leftNeighbour--;
                 }
