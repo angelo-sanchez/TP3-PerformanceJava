@@ -40,7 +40,7 @@ public class Solutions {
             start = System.currentTimeMillis();
             System.out.print("SORTED AND MAPPED -- Pairs: " + sort.isSumIn(problemGen.getData(), suma).size());
             start = System.currentTimeMillis() - start;
-            System.out.println(" // " + start + " Milisegundos.\n\n")
+            System.out.println(" // " + start + " Milisegundos.\n\n");
         }
         int i = 0;
     }
