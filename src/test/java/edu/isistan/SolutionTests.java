@@ -108,4 +108,14 @@ public class SolutionTests {
 		makeTest(new SolutionNaive2());
 	}
 
+	@Test
+	public void testSolutionSortSearch() {
+		makeTest(new SolutionSortSearch());
+	}
+
+	@Test
+	public void testSolutionSortSearch2() {
+		makeTest(new SolutionSortSearch2());
+	}
+
 }
