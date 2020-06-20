@@ -9,17 +9,23 @@ public class ProblemGen {
 	
 	protected int target;
 	protected int[] data;
+	private  int min, max;
 	
 	
 	public void genRandomProblem(int size) {
+		max = Integer.MIN_VALUE; min = Integer.MAX_VALUE;
 		target = (int) (Math.random() * 2 * Integer.MAX_VALUE + Integer.MIN_VALUE);
 		data = new int[size];
 		for(int i = 0; i < size; i++) {
 			data[i] = (int) (Math.random() * Integer.MAX_VALUE + Integer.MIN_VALUE/2);
-			data[i] -= Math.signum(data[i]); 
+			data[i] -= Math.signum(data[i]);
+			if(data[i]<min) min = data[i];
+			if(data[i] > max) max = data[i];
 		}
 	}
-	
+	public String minMax(){
+		return min+ " y "+max;
+	}
 
 	public boolean genIrresolProblem(int size) {
 		return this.genIrresolProblem(size, 

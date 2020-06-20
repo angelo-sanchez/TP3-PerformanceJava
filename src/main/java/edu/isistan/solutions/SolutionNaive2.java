@@ -16,7 +16,7 @@ public class SolutionNaive2 implements IProblemSolver{
 	    .forEach(i -> IntStream.range(i+1,  data.length)
 	        .filter(j -> i != j && data[i] + data[j] == sum)
 	        .forEach(j -> pairs.add(new Pair(data[i], data[j])))
-	    		);
+		);
 
       
 		return pairs;

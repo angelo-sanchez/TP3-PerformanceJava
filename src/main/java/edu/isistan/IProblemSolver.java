@@ -7,7 +7,7 @@ public interface IProblemSolver {
 	/**
 	 * Look in the data two integers that sums to target.
 	 * @param data
-	 * @param target
+	 * @param sum
 	 * @return
 	 */
 	public List<Pair> isSumIn(int[] data, int sum);
