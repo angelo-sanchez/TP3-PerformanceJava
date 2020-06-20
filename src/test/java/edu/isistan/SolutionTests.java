@@ -165,6 +165,11 @@ public class SolutionTests {
 	public void testSolutionSortSearch2() {
 		makeTest(new SolutionSortSearch2());
 	}
+	
+	@Test
+	public void testSolutionSortSearch3() {
+		makeTest(new SolutionSortSearch3());
+	}
 
 	@Test
 	public void testSolutionPro() {

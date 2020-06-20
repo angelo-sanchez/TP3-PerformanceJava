@@ -18,6 +18,11 @@ public class Solutions {
     public static void main(String[] args) throws Exception {
 
     	org.openjdk.jmh.Main.main(args);
+    	/*ProblemGen problemGen = new ProblemGen();
+    	problemGen.genRandomProblem(10000);
+    	data = problemGen.getData();
+    	solution = new SolutionSortSearch3();
+    	test2();*/
     }
     
     
@@ -52,9 +57,10 @@ public class Solutions {
     	data = problemGen.getData();
     	
     	//solution = new SolutionSortSearch(); //avg 1.010
-    	//solution = new SolutionSortSearch2(); //avg 3,680
-    	solution = new SolutionNaive2(); //avgt   25  175,167 ± 3,617  ms/op
+    	//solution = new SolutionSortSearch2(); // (min, avg, max) = (3,477, 3,615, 3,744)
+    	//solution = new SolutionNaive2(); //avgt   25  175,167 ± 3,617  ms/op
     	//solution = new SolutionNaive(); // avg 32,087
+    	solution = new SolutionSortSearch3();
     }
     
  
@@ -64,7 +70,7 @@ public class Solutions {
     @Measurement(iterations = 5)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     @BenchmarkMode(Mode.AverageTime)
-    public void test2() {
+    public static void test2() {
         
         solution.isSumIn(data, sum);
     }
