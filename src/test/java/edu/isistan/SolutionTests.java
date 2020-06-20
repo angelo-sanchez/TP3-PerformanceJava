@@ -108,4 +108,9 @@ public class SolutionTests {
 		makeTest(new SolutionNaive2());
 	}
 
+	@Test
+	public void testSolutionPro() {
+		makeTest(new SolutionPro());
+	}
+
 }
