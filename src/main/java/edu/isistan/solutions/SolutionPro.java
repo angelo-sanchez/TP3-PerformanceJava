@@ -26,8 +26,8 @@ public class SolutionPro implements IProblemSolver {
 						pairs.add(new Pair(data[i], data[i]));
 				}
 			} else {
-				int j = Arrays.binarySearch(data, sum - data[i]);
-				if (j > i) {
+				int j = Arrays.binarySearch(data, i + 1, data.length, sum - data[i]);
+				if (j > 0) {
 					int cantI = frequencyOfI(data, i);
 					int cantJ = frequencyForJ(data, j);
 					// Add as many pairs as combinations of cantI with cantJ
