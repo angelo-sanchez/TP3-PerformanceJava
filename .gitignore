@@ -1,3 +1,9 @@
 /.idea/
 /target/
 /contandoPares.iml
+.attach*
+.project
+.classpath
+.factorypath
+.settings/*
+.sts4-cache/*
