@@ -22,6 +22,7 @@ public class SolutionTests {
 		case2();
 		case3();
 		case4();
+		case5();
 	}
 
 	private void case1() {
@@ -69,6 +70,20 @@ public class SolutionTests {
 	}
 
 	private void case4() {
+		List<IProblemSolver.Pair> expected = new ArrayList<>();
+		int[] array = { 1, 1, 1, 1, 1, 1, 1 };
+		int sum = 2;
+		final int SUM_7 = 21;
+		for (int i = 0; i < SUM_7; i++) {
+			expected.add(new IProblemSolver.Pair(1, 1));
+		}
+
+		arrays.add(array);
+		sums.add(sum);
+		expectedResults.add(expected);
+	}
+
+	private void case5() {
 		List<IProblemSolver.Pair> expected = new ArrayList<>();
 		int[] array = { 1, 8, -8, 32, -6, -6, -4, 4, -44, -16, -20 };
 		int sum = -12;
