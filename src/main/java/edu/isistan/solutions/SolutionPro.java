@@ -12,29 +12,40 @@ public class SolutionPro implements IProblemSolver {
 	public List<Pair> isSumIn(int[] data, int sum) {
 		List<Pair> pairs = new ArrayList<>();
 		Arrays.parallelSort(data);
-		
+
 		for (int i = 0; i < data.length; i++) {
-			if (i > 0 && data[i] == data[i-1])
+			if (i > 0 && data[i] == data[i - 1])
 				continue;
 			int j = Arrays.binarySearch(data, sum - data[i]);
-				if (j > i) {
-					int cantI = 1;
-					int cantJ = 1;
-					for (int aux = i + 1; aux < data.length && data[aux] == data[i]; aux++) {
-						cantI++;
-					}
-					for (int aux = j + 1; aux < data.length && data[aux] == data[j]; aux++) {
-						cantJ++;
-					}
-					for (int aux = j - 1; aux >= 0 && data[aux] == data[j]; aux--) {
-						cantJ++;
-					}
-					for (int aux = 0; aux < cantI * cantJ; aux++)
-						pairs.add(new Pair(data[i], data[j]));
-				}
+			if (j > i) {
+				int cantI = frequencyOfI(data, i);
+				int cantJ = frequencyForJ(data, j);
+				// Add as many pairs as combinations of cantI with cantJ
+				for (int aux = 0; aux < cantI * cantJ; aux++)
+					pairs.add(new Pair(data[i], data[j]));
+			}
 		}
 
 		return pairs;
+	}
+
+	private int frequencyForJ(int[] data, int j) {
+		int cantJ = 1;
+		for (int aux = j + 1; aux < data.length && data[aux] == data[j]; aux++) {
+			cantJ++;
+		}
+		for (int aux = j - 1; aux >= 0 && data[aux] == data[j]; aux--) {
+			cantJ++;
+		}
+		return cantJ;
+	}
+
+	private int frequencyOfI(int[] data, int i) {
+		int cantI = 1;
+		for (int aux = i + 1; aux < data.length && data[aux] == data[i]; aux++) {
+			cantI++;
+		}
+		return cantI;
 	}
 
 }
