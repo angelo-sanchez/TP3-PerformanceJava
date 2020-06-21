@@ -175,5 +175,10 @@ public class SolutionTests {
 	public void testSolutionPro() {
 		makeTest(new SolutionPro());
 	}
+	
+	@Test
+	public void testSolutionProThread() {
+		makeTest(new SolutionProThread());
+	}
 
 }
