@@ -58,11 +58,12 @@ public class Solutions {
     	data = problemGen.getData();
     	
     	//solution = new SolutionSortSearch(); 	//(min, avg, max) = (113,338, 122,860, 127,389)
+    	solution = new SolutionSortSearchWithExecutorService();  //(min, avg, max) = (93,912, 97,701, 102,048)
     	//solution = new SolutionNaive2(); 		//no termina
     	//solution = new SolutionNaive(); 		// no termina
     	//solution = new SolutionSortSearch3(); //no termina con tanto
-    	//solution = new SolutionPro(); 		//(min, avg, max) = (142,607, 151,981, 162,089)
-    	solution = new SolutionProThread();		//(min, avg, max) = (116,865, 125,099, 133,479)
+    	//solution = new SolutionPro(); 		//(min, avg, max) = (142,607, 151,981, 162,089) con mejora -> (min, avg, max) = (149,718, 155,558, 204,865)
+    	//solution = new SolutionProThread();		//(min, avg, max) = (116,865, 125,099, 133,479)  con mejora ->  (min, avg, max) = (94,602, 100,640, 111,425)
     }
     
     @Benchmark

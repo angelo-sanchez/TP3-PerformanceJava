@@ -180,5 +180,10 @@ public class SolutionTests {
 	public void testSolutionProThread() {
 		makeTest(new SolutionProThread());
 	}
+	
+	@Test
+	public void testSolutionSortSearchWithExecutorService() {
+		makeTest(new SolutionSortSearchWithExecutorService());
+	}
 
 }
