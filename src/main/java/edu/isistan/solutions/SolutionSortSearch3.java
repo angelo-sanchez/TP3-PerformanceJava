@@ -22,17 +22,33 @@ public class SolutionSortSearch3 implements IProblemSolver {
         
         final Integer[] nuevo = new Integer[freqs.size()];
         freqs.keySet().toArray(nuevo);
-        Arrays.sort(nuevo);
         for (int i = 0; i < nuevo.length; i++) {
             Integer elem = nuevo[i];
+
             int found = (freqs.get(sum-elem)== null)? -1 : freqs.get(sum-elem);
             
-            if(found >= 0){
-                for (int j = 0; j < freqs.get(elem); j++) {
-                    for (int k = 0; k < found; k++) {
-                        pairs.add(new Pair(elem, sum-elem));
+            if(found > 0){
+            	int fc = freqs.get(elem);
+            	if (elem == (sum-elem)) {
+            		freqs.put(elem, fc-1);
+            		found--;
+            		fc = found;
+            		
+                    for (int j = 0; j < fc; j++) {
+                        for (int k = j; k < found; k++) {
+                            pairs.add(new Pair(elem, elem));
+                        }
                     }
-                }
+            	}else {
+                    for (int j = 0; j < fc; j++) {
+                        for (int k = 0; k < found; k++) {
+                            pairs.add(new Pair(elem, sum-elem));
+                        }                   
+                    }
+            	}
+            	
+                //quito el elemento para no tenerlo en cuenta en las próximas busquedas
+                freqs.put(elem, 0);
             }
         }
         return pairs;

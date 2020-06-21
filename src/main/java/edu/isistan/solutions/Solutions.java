@@ -20,9 +20,10 @@ public class Solutions {
     	org.openjdk.jmh.Main.main(args);
     	/*ProblemGen problemGen = new ProblemGen();
     	problemGen.genRandomProblem(10000);
-    	data = problemGen.getData();
+    	int[] array =  { -100, 75, -1, 84, 3, 3, 9, 1, 5, 7, 3, 9, -1, -1, 1 };
+    	sum = 6;
     	solution = new SolutionSortSearch3();
-    	test2();*/
+    	solution.isSumIn(array, 2);*/
     }
     
     
@@ -53,17 +54,16 @@ public class Solutions {
     @Setup(Level.Invocation)
     public void setup() {
     	ProblemGen problemGen = new ProblemGen();
-    	problemGen.genRandomProblem(10000);
+    	problemGen.genRandomProblem(1000000);
     	data = problemGen.getData();
     	
-    	//solution = new SolutionSortSearch(); //avg 1.010
-    	//solution = new SolutionSortSearch2(); // (min, avg, max) = (3,477, 3,615, 3,744)
-    	//solution = new SolutionNaive2(); //avgt   25  175,167 ± 3,617  ms/op
-    	//solution = new SolutionNaive(); // avg 32,087
-    	solution = new SolutionSortSearch3();
+    	//solution = new SolutionSortSearch(); 	//(min, avg, max) = (159,605, 162,571, 169,892)
+    	solution = new SolutionNaive2(); 		//no termina
+    	//solution = new SolutionNaive(); 		// no termina
+    	//solution = new SolutionSortSearch3(); //(min, avg, max) = (688,241, 740,035, 842,555)
+    	//solution = new SolutionPro(); 		//(min, avg, max) = (68,872, 72,460, 75,746)
     }
     
- 
     @Benchmark
     @Fork(value = 5, warmups = 0)
     @Warmup(iterations = 5)

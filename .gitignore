@@ -30,3 +30,4 @@ hs_err_pid*
 .factorypath
 .settings/*
 .sts4-cache/*
+.metadata/*
