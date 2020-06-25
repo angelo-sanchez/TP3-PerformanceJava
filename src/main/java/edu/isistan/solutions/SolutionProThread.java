@@ -3,110 +3,107 @@ package edu.isistan.solutions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.Vector;
 
 import edu.isistan.IProblemSolver;
 
-public class SolutionProThread implements IProblemSolver {
-	private static final int TASKS_FOR_CORE = 16;
+public class SolutionProThread implements IProblemSolver{
+	List<Pair> pairs = new Vector<>();
 	private int[] data;
 	private int sum;
-
+	
 	@Override
 	public List<Pair> isSumIn(int[] data, int sum) {
-		List<Pair> pairs = new ArrayList<>();
-		List<Future<List<Pair>>> futures = new ArrayList<>();
-
+		
 		Arrays.parallelSort(data);
-		final int cores = Runtime.getRuntime().availableProcessors();
-		ExecutorService executorService = Executors.newFixedThreadPool(cores);
-		final int calculatedStep = data.length / (cores * TASKS_FOR_CORE);
-		final int step = (calculatedStep == 0) ? 1 : calculatedStep;
 		this.data = data;
 		this.sum = sum;
+		
+        int inic = 0;
+        boolean cont = true;
+        int salto = 11000;
+        int fin = 0;
+        
+        ArrayList<Thread> threads = new ArrayList<>();
+        while(cont) {
+        	fin = inic+salto;
+        	if(fin > data.length) {
+        		fin = data.length;
+        		cont = false;
+        	}
+        	int i = inic;
+        	int f= fin;
 
-		// Assign parts of the data array into a concurrent task
-		for (int i = 0; i < data.length; i += step) {
-			final int start = i;
-			final int limit = i + step;
-			final int end = (limit > data.length) ? data.length : limit;
-			futures.add(executorService.submit(() -> {
-				return findPairsInSubArray(start, end);
-			}));
-		}
-		executorService.shutdown();
+        	Thread thread = new Thread(){
+        		public void run(){
+        			search(i, f);
+        		}
+        	};
+        	thread.start();
+        	threads.add(thread);
+        			   
+        	inic = fin;
+        }
 
-		for (Future<List<Pair>> future : futures) {
+        for (int x=0;x<threads.size();x++)
 			try {
-				pairs.addAll(future.get());
-			} catch (InterruptedException | ExecutionException e) {
+				threads.get(x).join();
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
 
 		return pairs;
 	}
-
-	private List<Pair> findPairsInSubArray(int start, int end) {
-		List<Pair> pairs = new ArrayList<>();
-
-		for (int i = start; i < end; i++) {
-			final int currentValue = data[i];
-			if (i > 0 && currentValue == data[i - 1])
+	
+	private void search(int inic, int fin) {
+		for (int i = inic; i < fin; i++) {
+			if (i > 0 && data[i] == data[i - 1])
 				continue;
 
 			// If the current value needs a lower value to make a pair, then the loop must
 			// finish because it's an ordered array
-			final int complementaryValue = sum - currentValue;
-			if (currentValue > complementaryValue)
+			if (data[i] > sum - data[i])
 				break;
 
-			if (sum == currentValue * 2) {
-				int cantI = frequencyOfCurrentValue(data, i);
+			if (sum == data[i] * 2) {
+				int cantI = frequencyOfI(data, i);
 				if (cantI > 1) {
 					// If the pair is with itself and it's a repeated value
 					int combinations = sum(cantI);
 					for (int aux = 0; aux < combinations; aux++)
-						pairs.add(new Pair(currentValue, currentValue));
+						pairs.add(new Pair(data[i], data[i]));
 				}
 			} else {
-				int j = Arrays.binarySearch(data, i + 1, data.length, complementaryValue);
+				int j = Arrays.binarySearch(data, i + 1, data.length, sum - data[i]);
 				if (j > 0) {
-					int freqCurrentValue = frequencyOfCurrentValue(data, i);
-					int freqComplementaryValue = frequencyOfComplementaryValue(data, j);
-					// Add as many pairs as combinations of the frequencies
-					for (int aux = 0; aux < freqCurrentValue * freqComplementaryValue; aux++)
-						pairs.add(new Pair(currentValue, complementaryValue));
+					int cantI = frequencyOfI(data, i);
+					int cantJ = frequencyForJ(data, j);
+					// Add as many pairs as combinations of cantI with cantJ
+					for (int aux = 0; aux < cantI * cantJ; aux++)
+						pairs.add(new Pair(data[i], data[j]));
 				}
 			}
 		}
-
-		return pairs;
 	}
 
 	private int sum(int n) {
 		return (n * (n - 1)) / 2;
 	}
 
-	private int frequencyOfComplementaryValue(int[] data, int index) {
+	private int frequencyForJ(int[] data, int j) {
 		int cantJ = 1;
-		final int currentValue = data[index];
-		for (int aux = index + 1; aux < data.length && data[aux] == currentValue; aux++) {
+		for (int aux = j + 1; aux < data.length && data[aux] == data[j]; aux++) {
 			cantJ++;
 		}
-		for (int aux = index - 1; aux >= 0 && data[aux] == currentValue; aux--) {
+		for (int aux = j - 1; aux >= 0 && data[aux] == data[j]; aux--) {
 			cantJ++;
 		}
 		return cantJ;
 	}
 
-	private int frequencyOfCurrentValue(int[] data, int index) {
+	private int frequencyOfI(int[] data, int i) {
 		int cantI = 1;
-		final int currentValue = data[index];
-		for (int aux = index + 1; aux < data.length && data[aux] == currentValue; aux++) {
+		for (int aux = i + 1; aux < data.length && data[aux] == data[i]; aux++) {
 			cantI++;
 		}
 		return cantI;

@@ -22,7 +22,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.baeldung.BenchmarkRunner</mainClass>
+                            <mainClass>edu.isistan.solutions.Solutions</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

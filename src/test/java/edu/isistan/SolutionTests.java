@@ -155,15 +155,20 @@ public class SolutionTests {
 	public void testSolutionNaive2() {
 		makeTest(new SolutionNaive2());
 	}
-
+	
 	@Test
 	public void testSolutionSortSearch() {
 		makeTest(new SolutionSortSearch());
 	}
 
 	@Test
-	public void testSolutionSortSearch2() {
-		makeTest(new SolutionSortSearch2());
+	public void testSolutionSortSearchWithThread() {
+		makeTest(new SolutionSortSearchWithThread());
+	}
+
+	@Test
+	public void testSolutionSortSearchWithExecutorService() {
+		makeTest(new SolutionSortSearchWithExecutorService());
 	}
 	
 	@Test
@@ -182,8 +187,9 @@ public class SolutionTests {
 	}
 	
 	@Test
-	public void testSolutionSortSearchWithExecutorService() {
-		makeTest(new SolutionSortSearchWithExecutorService());
+	public void testSolutionProWithExecutorService() {
+		makeTest(new SolutionProWithExecutorService());
 	}
+	
 
 }
