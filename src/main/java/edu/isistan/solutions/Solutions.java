@@ -1,11 +1,8 @@
 package edu.isistan.solutions;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
-
 import org.openjdk.jmh.annotations.*;
-
 import edu.isistan.IProblemSolver;
 import edu.isistan.ProblemGen;
 
@@ -14,56 +11,57 @@ public class Solutions {
 	private static int[] data;
 	private static IProblemSolver solution;
 	private static int sum = 0;
+	private static int tamArr = 50000000;
 
     public static void main(String[] args) throws Exception {
 
-    	org.openjdk.jmh.Main.main(args);
-    	/*ProblemGen problemGen = new ProblemGen();
-    	problemGen.genRandomProblem(1000000);
-    	int[] array =  { -100, 75, -1, 84, 3, 3, 9, 1, 5, 7, 3, 9, -1, -1, 1 };
-    	sum = 6;
-    	solution = new SolutionSortSearch();
-    	solution.isSumIn(problemGen.getData(), 0);*/
+    	//Descomentar linea para ejecutar los test con Benchmark
+    	//org.openjdk.jmh.Main.main(args);
+
+    	//Metodo usado para el testeo de memoria que consume cada solución con visualVM
+    	testMemory();
     }
     
-    
-    public static void test() {
-        ProblemGen problemGen = new ProblemGen();
+    public static void testMemory() {
+    	ProblemGen problemGen = new ProblemGen();
+    	problemGen.genRandomProblem(tamArr);
+    	sum = (int)(Math.random() * 2 * Integer.MAX_VALUE + Integer.MIN_VALUE/2);
+		
+    	//solution = new SolutionSortSearch();
+    	//solution = new SolutionSortSearchWithThread();
+    	//solution = new SolutionSortSearchWithExecutorService();
+    	//solution = new SolutionNaive2();
+    	//solution = new SolutionNaive();
+    	//solution = new SolutionSortSearch3();
+    	//solution = new SolutionPro();
+    	solution = new SolutionProThread();
+    	//solution = new SolutionProWithExecutorService();
 
-        IProblemSolver naive = new SolutionSortSearch();
-        IProblemSolver sort = new SolutionSortSearch2();
-//        int suma = (int) (Math.random() * 2 * Integer.MAX_VALUE + Integer.MIN_VALUE / 2);
-        int suma = 0;
-        System.out.println("Número a encontrar: " + suma);
-        for (int i = 0; i < 20; i++) {
-            problemGen.genRandomProblem(1000);
-            System.out.println("Se buscará en un arreglo con números entre: " + problemGen.minMax());
-//			System.out.println(Arrays.toString(problemGen.getData()));
-            long start = System.currentTimeMillis(); //acá no está haciendo el warm up para empezar con el benchmarking!!
-            System.out.print("SORTED AND NEIGHBOUR: -- Pairs: " + naive.isSumIn(problemGen.getData(), suma).size()+"\n");
-            start = System.currentTimeMillis() - start;
-            System.out.println(" // " + start + " Milisegundos.\n\n");
-            start = System.currentTimeMillis();
-            System.out.print("SORTED AND MAPPED -- Pairs: " + sort.isSumIn(problemGen.getData(), suma).size());
-            start = System.currentTimeMillis() - start;
-            System.out.println(" // " + start + " Milisegundos.\n\n");
-        }
-        int i = 0;
+		System.out.println(solution.isSumIn(problemGen.getData(), sum).size());
+		
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     @Setup(Level.Invocation)
-    public void setup() {
+    public static void setup() {
     	ProblemGen problemGen = new ProblemGen();
-    	problemGen.genRandomProblem(2000000);
+    	problemGen.genRandomProblem(tamArr);
     	data = problemGen.getData();
     	
-    	//solution = new SolutionSortSearch(); 	//(min, avg, max) = (113,338, 122,860, 127,389)
-    	solution = new SolutionSortSearchWithExecutorService();  //(min, avg, max) = (93,912, 97,701, 102,048)
-    	//solution = new SolutionNaive2(); 		//no termina
-    	//solution = new SolutionNaive(); 		// no termina
-    	//solution = new SolutionSortSearch3(); //no termina con tanto
-    	//solution = new SolutionPro(); 		//(min, avg, max) = (142,607, 151,981, 162,089) con mejora -> (min, avg, max) = (149,718, 155,558, 204,865)
-    	//solution = new SolutionProThread();		//(min, avg, max) = (116,865, 125,099, 133,479)  con mejora ->  (min, avg, max) = (94,602, 100,640, 111,425)
+    	//solution = new SolutionSortSearch();
+    	//solution = new SolutionSortSearchWithThread();
+    	//solution = new SolutionSortSearchWithExecutorService();
+    	//solution = new SolutionNaive2();
+    	//solution = new SolutionNaive();
+    	//solution = new SolutionSortSearch3();
+    	//solution = new SolutionPro();
+    	solution = new SolutionProThread();
+    	//solution = new SolutionProWithExecutorService();
     }
     
     @Benchmark
